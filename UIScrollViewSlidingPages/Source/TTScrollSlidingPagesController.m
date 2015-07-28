@@ -41,6 +41,11 @@
 
 @implementation TTScrollSlidingPagesController
 
+- (void)dealloc {
+    topScrollView.delegate = nil;
+    bottomScrollView.delegate = nil;
+}
+
 /**
  Initalises the control and sets all the default values for the user-settable properties.
  */
@@ -106,9 +111,9 @@
     TTBlackTriangle *triangle;
     if (!self.titleScrollerHidden){
         //add a triangle view to point to the currently selected page from the header
-        int triangleWidth = 30;
-        int triangleHeight = 10;
-        triangle = [[TTBlackTriangle alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-(triangleWidth/2), nextYPosition/*start at the top of the nextYPosition, but dont increment the yposition, so this means the triangle sits on top of the topscroller and cuts into it a bit*/, triangleWidth, triangleHeight) color:self.triangleBackgroundColour];
+        int triangleWidth = 14;
+        int triangleHeight = 7;
+        triangle = [[TTBlackTriangle alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-(triangleWidth/2), nextYPosition + self.titleScrollerHeight - triangleHeight/*start at the top of the nextYPosition, but dont increment the yposition, so this means the triangle sits on top of the topscroller and cuts into it a bit*/, triangleWidth, triangleHeight) color:self.triangleBackgroundColour];
         triangle.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:triangle];
         
